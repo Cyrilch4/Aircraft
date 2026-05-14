@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { UserPlus, ExternalLink, CheckCircle2, Clock, AlertCircle, Banknote, HardHat } from 'lucide-react'
+import { UserPlus, ExternalLink, CheckCircle2, Clock, AlertCircle, Banknote, HardHat, LogIn } from 'lucide-react'
 
 const CLIENTS = [
   { id: 'c1', prenom: 'Marie',    nom: 'Lefebvre',  email: 'marie.lefebvre@email.fr',  adresse: '8 allée des Roses, 75016 Paris',          chantier: true,  facturation: 'a_facturer' },
@@ -57,49 +57,62 @@ export default function ClientsPage() {
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Email</th>
               <th className="px-4 py-3.5 text-center text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Chantier</th>
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Facturation</th>
-              <th className="w-12 px-4 py-3.5" />
+              <th className="w-16 px-4 py-3.5" />
             </tr>
           </thead>
           <tbody className="divide-y divide-[#F5F5F7]">
-            {CLIENTS.map((c) => (
-              <tr key={c.id} className="hover:bg-[#F5F5F7] transition-colors group">
-                <td className="px-5 py-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-[#34C759]/10 flex items-center justify-center shrink-0">
-                      <span className="text-[13px] font-bold text-[#34C759]">{c.prenom[0]}{c.nom[0]}</span>
+            {CLIENTS.map((c) => {
+              const encodedName = encodeURIComponent(`${c.prenom} ${c.nom}`)
+              return (
+                <tr key={c.id} className="hover:bg-[#F5F5F7] transition-colors group">
+                  <td className="px-5 py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-[#34C759]/10 flex items-center justify-center shrink-0">
+                        <span className="text-[13px] font-bold text-[#34C759]">{c.prenom[0]}{c.nom[0]}</span>
+                      </div>
+                      <span className="font-semibold text-[14px] text-[#1D1D1F]">{c.prenom} {c.nom}</span>
                     </div>
-                    <span className="font-semibold text-[14px] text-[#1D1D1F]">{c.prenom} {c.nom}</span>
-                  </div>
-                </td>
-                <td className="px-4 py-4">
-                  <div className="text-[13px] text-[#6E6E73] max-w-[220px] truncate">{c.adresse}</div>
-                </td>
-                <td className="px-4 py-4">
-                  <div className="text-[13px] text-[#1D1D1F]">{c.email}</div>
-                </td>
-                <td className="px-4 py-4 text-center">
-                  {c.chantier ? (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-semibold text-[#34C759] bg-[#34C759]/10">
-                      <HardHat className="w-3.5 h-3.5" />
-                      En cours
-                    </span>
-                  ) : (
-                    <span className="text-[12px] text-[#C7C7CC]">—</span>
-                  )}
-                </td>
-                <td className="px-4 py-4">
-                  <FacturationBadge statut={c.facturation as keyof typeof FACTURATION_CONFIG} />
-                </td>
-                <td className="px-4 py-4 text-right">
-                  <Link
-                    href={`/admin/clients/${c.id}`}
-                    className="inline-flex items-center gap-1 text-[13px] text-[#0071E3] opacity-0 group-hover:opacity-100 transition-opacity hover:underline"
-                  >
-                    Voir <ExternalLink className="w-3.5 h-3.5" />
-                  </Link>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="text-[13px] text-[#6E6E73] max-w-[220px] truncate">{c.adresse}</div>
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="text-[13px] text-[#1D1D1F]">{c.email}</div>
+                  </td>
+                  <td className="px-4 py-4 text-center">
+                    {c.chantier ? (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-semibold text-[#34C759] bg-[#34C759]/10">
+                        <HardHat className="w-3.5 h-3.5" />
+                        En cours
+                      </span>
+                    ) : (
+                      <span className="text-[12px] text-[#C7C7CC]">—</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-4">
+                    <FacturationBadge statut={c.facturation as keyof typeof FACTURATION_CONFIG} />
+                  </td>
+                  <td className="px-4 py-4 text-right">
+                    <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <a
+                        href={`/admin/impersonate?id=${c.id}&type=client&name=${encodedName}`}
+                        title={`Accéder au portail de ${c.prenom} ${c.nom}`}
+                        className="inline-flex items-center gap-1 text-[13px] text-[#FF9500] hover:underline"
+                      >
+                        <LogIn className="w-3.5 h-3.5" />
+                        Portail
+                      </a>
+                      <Link
+                        href={`/admin/clients/${c.id}`}
+                        className="inline-flex items-center gap-1 text-[13px] text-[#0071E3] hover:underline"
+                      >
+                        Fiche <ExternalLink className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>

@@ -1,9 +1,18 @@
 import Link from 'next/link'
 import { HardHat } from 'lucide-react'
+import { cookies } from 'next/headers'
+import { ImpersonationBanner } from '@/components/ImpersonationBanner'
 
-export default function ClientLayout({ children }: { children: React.ReactNode }) {
+export default async function ClientLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies()
+  const impName = cookieStore.get('imp_name')?.value
+  const impType = cookieStore.get('imp_type')?.value
+
   return (
     <>
+      {impName && impType === 'client' && (
+        <ImpersonationBanner name={impName} type="client" />
+      )}
       <nav className="border-b border-[#D2D2D7] bg-white sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2.5">

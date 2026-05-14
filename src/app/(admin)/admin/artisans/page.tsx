@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { UserPlus, ExternalLink, CheckCircle2, Clock, XCircle, Network } from 'lucide-react'
+import { UserPlus, ExternalLink, CheckCircle2, Clock, XCircle, Network, LogIn } from 'lucide-react'
 import { getLevelCounts } from '@/lib/queries/network'
 
 const ARTISANS = [
@@ -29,7 +29,6 @@ function ConventionBadge({ statut }: { statut: keyof typeof CONVENTION_CONFIG })
 export default async function ArtisansPage() {
   const signees = ARTISANS.filter((a) => a.convention === 'signee').length
 
-  // Récupère la taille du réseau (galaxie) pour chaque artisan
   const galaxies = await Promise.all(
     ARTISANS.map((a) =>
       getLevelCounts(a.id)
@@ -63,53 +62,66 @@ export default async function ArtisansPage() {
               <th className="px-4 py-3.5 text-center text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Projets</th>
               <th className="px-4 py-3.5 text-center text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Galaxie</th>
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Convention</th>
-              <th className="w-12 px-4 py-3.5" />
+              <th className="w-16 px-4 py-3.5" />
             </tr>
           </thead>
           <tbody className="divide-y divide-[#F5F5F7]">
-            {ARTISANS.map((a, i) => (
-              <tr key={a.id} className="hover:bg-[#F5F5F7] transition-colors group">
-                <td className="px-5 py-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-[#0071E3]/10 flex items-center justify-center shrink-0">
-                      <span className="text-[13px] font-bold text-[#0071E3]">{a.prenom[0]}{a.nom[0]}</span>
+            {ARTISANS.map((a, i) => {
+              const encodedName = encodeURIComponent(`${a.prenom} ${a.nom}`)
+              return (
+                <tr key={a.id} className="hover:bg-[#F5F5F7] transition-colors group">
+                  <td className="px-5 py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-[#0071E3]/10 flex items-center justify-center shrink-0">
+                        <span className="text-[13px] font-bold text-[#0071E3]">{a.prenom[0]}{a.nom[0]}</span>
+                      </div>
+                      <span className="font-semibold text-[14px] text-[#1D1D1F]">{a.prenom} {a.nom}</span>
                     </div>
-                    <span className="font-semibold text-[14px] text-[#1D1D1F]">{a.prenom} {a.nom}</span>
-                  </div>
-                </td>
-                <td className="px-4 py-4">
-                  <div className="text-[13px] text-[#1D1D1F]">{a.email}</div>
-                  <div className="text-[12px] text-[#6E6E73] mt-0.5">{a.tel}</div>
-                </td>
-                <td className="px-4 py-4">
-                  <div className="text-[13px] text-[#6E6E73] max-w-[200px] truncate">{a.adresse}</div>
-                </td>
-                <td className="px-4 py-4 text-center">
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#F5F5F7] text-[13px] font-semibold text-[#1D1D1F]">
-                    {a.projets}
-                  </span>
-                </td>
-                <td className="px-4 py-4 text-center">
-                  <div className="flex items-center justify-center gap-1.5">
-                    <Network className="w-3.5 h-3.5 text-[#AF52DE]" />
-                    <span className="text-[14px] font-semibold text-[#AF52DE]">
-                      {galaxies[i]}
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="text-[13px] text-[#1D1D1F]">{a.email}</div>
+                    <div className="text-[12px] text-[#6E6E73] mt-0.5">{a.tel}</div>
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="text-[13px] text-[#6E6E73] max-w-[200px] truncate">{a.adresse}</div>
+                  </td>
+                  <td className="px-4 py-4 text-center">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#F5F5F7] text-[13px] font-semibold text-[#1D1D1F]">
+                      {a.projets}
                     </span>
-                  </div>
-                </td>
-                <td className="px-4 py-4">
-                  <ConventionBadge statut={a.convention as keyof typeof CONVENTION_CONFIG} />
-                </td>
-                <td className="px-4 py-4 text-right">
-                  <Link
-                    href={`/admin/artisans/${a.id}`}
-                    className="inline-flex items-center gap-1 text-[13px] text-[#0071E3] opacity-0 group-hover:opacity-100 transition-opacity hover:underline"
-                  >
-                    Voir <ExternalLink className="w-3.5 h-3.5" />
-                  </Link>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td className="px-4 py-4 text-center">
+                    <div className="flex items-center justify-center gap-1.5">
+                      <Network className="w-3.5 h-3.5 text-[#AF52DE]" />
+                      <span className="text-[14px] font-semibold text-[#AF52DE]">
+                        {galaxies[i]}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-4">
+                    <ConventionBadge statut={a.convention as keyof typeof CONVENTION_CONFIG} />
+                  </td>
+                  <td className="px-4 py-4 text-right">
+                    <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <a
+                        href={`/admin/impersonate?id=${a.id}&type=artisan&name=${encodedName}`}
+                        title={`Accéder au portail de ${a.prenom} ${a.nom}`}
+                        className="inline-flex items-center gap-1 text-[13px] text-[#FF9500] hover:underline"
+                      >
+                        <LogIn className="w-3.5 h-3.5" />
+                        Portail
+                      </a>
+                      <Link
+                        href={`/admin/artisans/${a.id}`}
+                        className="inline-flex items-center gap-1 text-[13px] text-[#0071E3] hover:underline"
+                      >
+                        Fiche <ExternalLink className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>
