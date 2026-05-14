@@ -12,7 +12,7 @@ export function BreadcrumbNav({ items }: BreadcrumbNavProps) {
   const crumbs = [{ id: '', name: 'Mon réseau' }, ...items]
 
   return (
-    <nav className="flex items-center gap-1 text-sm text-gray-500">
+    <nav className="flex items-center gap-1 text-[13px] text-[#6E6E73]">
       {crumbs.map((crumb, i) => {
         const isLast = i === crumbs.length - 1
         const href =
@@ -25,14 +25,11 @@ export function BreadcrumbNav({ items }: BreadcrumbNavProps) {
 
         return (
           <span key={crumb.id || 'root'} className="flex items-center gap-1">
-            {i > 0 && <ChevronRight className="w-3.5 h-3.5 text-gray-300" />}
+            {i > 0 && <ChevronRight className="w-3 h-3 text-[#C7C7CC]" />}
             {isLast ? (
-              <span className="font-medium text-gray-900">{crumb.name}</span>
+              <span className="font-medium text-[#1D1D1F]">{crumb.name}</span>
             ) : (
-              <Link
-                href={href}
-                className="hover:text-gray-900 hover:underline transition-colors"
-              >
+              <Link href={href} className="text-[#0071E3] hover:underline transition-colors">
                 {crumb.name}
               </Link>
             )}

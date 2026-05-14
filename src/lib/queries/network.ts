@@ -40,14 +40,11 @@ export async function getBreadcrumbChain(
 ): Promise<BreadcrumbItem[]> {
   if (ids.length === 0) return []
   const supabase = createClient()
-  const { data } = await supabase
-    .from('profiles')
-    .select('id, full_name')
-    .in('id', ids)
+  const { data } = await supabase.rpc('get_breadcrumb_chain', { p_ids: ids })
   if (!data) return []
   return ids
     .map((id) => {
-      const profile = data.find((p) => p.id === id)
+      const profile = (data as { id: string; full_name: string }[]).find((p) => p.id === id)
       return profile ? { id, name: profile.full_name } : null
     })
     .filter(Boolean) as BreadcrumbItem[]

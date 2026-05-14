@@ -13,6 +13,7 @@ export function LevelTabs({ counts, activeLevel }: LevelTabsProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const countsMap = new Map(counts.map((c) => [c.level, c.count]))
+  const totalCount = counts.reduce((sum, c) => sum + c.count, 0)
 
   function buildHref(level: number) {
     const params = new URLSearchParams(searchParams.toString())
@@ -20,12 +21,16 @@ export function LevelTabs({ counts, activeLevel }: LevelTabsProps) {
     return `${pathname}?${params.toString()}`
   }
 
+  const tabs = [
+    { level: 0, label: 'Total', count: totalCount },
+    ...[1, 2, 3, 4, 5].map((l) => ({ level: l, label: `N-${l}`, count: countsMap.get(l) ?? 0 })),
+  ]
+
   return (
-    <div className="flex gap-1 border-b border-gray-200">
-      {[1, 2, 3, 4, 5].map((level) => {
-        const count = countsMap.get(level) ?? 0
+    <div className="flex gap-1">
+      {tabs.map(({ level, label, count }) => {
         const isActive = level === activeLevel
-        const isDisabled = count === 0
+        const isDisabled = count === 0 && level !== 0
 
         return (
           <Link
@@ -33,23 +38,23 @@ export function LevelTabs({ counts, activeLevel }: LevelTabsProps) {
             href={buildHref(level)}
             aria-disabled={isDisabled}
             className={[
-              'flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors',
+              'flex items-center gap-2 px-4 py-2 text-[15px] font-medium rounded-full transition-colors',
               isActive
-                ? 'border-blue-600 text-blue-600'
+                ? 'bg-[#0071E3] text-white'
                 : isDisabled
-                  ? 'border-transparent text-gray-300 pointer-events-none select-none'
-                  : 'border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-300',
+                  ? 'text-[#C7C7CC] pointer-events-none select-none'
+                  : 'text-[#1D1D1F] hover:bg-[#F5F5F7]',
             ].join(' ')}
           >
-            N-{level}
+            {label}
             <span
               className={[
-                'text-xs font-semibold px-1.5 py-0.5 rounded-full min-w-[20px] text-center',
+                'text-[12px] font-semibold px-2 py-0.5 rounded-full',
                 isActive
-                  ? 'bg-blue-100 text-blue-700'
+                  ? 'bg-[#0055AA] text-white'
                   : isDisabled
-                    ? 'bg-gray-100 text-gray-300'
-                    : 'bg-gray-100 text-gray-500',
+                    ? 'bg-[#F5F5F7] text-[#C7C7CC]'
+                    : 'bg-[#F5F5F7] text-[#1D1D1F]',
               ].join(' ')}
             >
               {count}
