@@ -14,7 +14,7 @@ const FOURNISSEURS = [
     id: 'f2',
     enseigne: 'Leroy Merlin Pro',
     categorie: 'Bricolage & second œuvre',
-    adresse: '2 avenue de l'Europe, 92000 Nanterre',
+    adresse: "2 avenue de l'Europe, 92000 Nanterre",
     tel: '01 47 25 90 00',
     email: 'pro.nanterre@leroymerlin.fr',
     couleur: '#2DC653',
