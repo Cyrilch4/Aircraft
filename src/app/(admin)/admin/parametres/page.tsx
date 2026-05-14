@@ -9,7 +9,7 @@ const DEFAULT_RATES = [
   { level: 5, taux: 2,  conditions: [] },
 ]
 
-const DEFAULT_MODELE = { marketing: 5, operations: 3 }
+const DEFAULT_MODELE = { part_artisan: 70, marketing: 5, operations: 3 }
 const DEFAULT_PARTAGE = { apporteur: 30, realisateur: 70 }
 
 export default async function ParametresPage() {
@@ -24,7 +24,7 @@ export default async function ParametresPage() {
   return (
     <ParametresClient
       initialMlmRates={ratesRes.data ?? DEFAULT_RATES}
-      initialModele={modeleRes.data ?? DEFAULT_MODELE}
+      initialModele={{ ...DEFAULT_MODELE, ...(modeleRes.data ?? {}) }}
       initialPartage={partageRes.data ?? DEFAULT_PARTAGE}
     />
   )

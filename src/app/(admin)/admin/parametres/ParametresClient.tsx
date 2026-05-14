@@ -13,6 +13,7 @@ interface NiveauConfig {
 }
 
 interface ModeleAffaire {
+  part_artisan: number
   marketing: number
   operations: number
 }
@@ -207,9 +208,8 @@ function TabModele({
   saving: boolean
   saved: boolean
 }) {
-  const partArtisan = 100 - totalMlm
-  const revenusPlateformeBruts = 100 - partArtisan  // = totalMlm
-  const revenusNets = revenusPlateformeBruts - totalMlm  // = 0 par construction
+  const revenusPlateformeBruts = 100 - modele.part_artisan
+  const revenusNets = revenusPlateformeBruts - totalMlm
   const resultat = revenusNets - modele.marketing - modele.operations
 
   return (
@@ -217,7 +217,7 @@ function TabModele({
       <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#F5F5F7] border border-[#E5E5EA] mb-5">
         <Info className="w-4 h-4 text-[#6E6E73] shrink-0" />
         <p className="text-[13px] text-[#6E6E73]">
-          Les lignes calculées (grisées) se mettent à jour automatiquement selon les taux de l'onglet <strong>Taux MLM</strong>.
+          Les lignes calculées (grisées) se mettent à jour automatiquement. La ligne 4 est alimentée par l'onglet <strong>Taux MLM</strong>.
         </p>
       </div>
 
@@ -232,7 +232,11 @@ function TabModele({
           </thead>
           <tbody className="divide-y divide-[#F5F5F7]">
             <RowCalc num="1" label="CA Chantier" value={100} highlight />
-            <RowCalc num="2" label="Part artisan (= 100 % − reversements réseau)" value={partArtisan} />
+            <RowInput
+              num="2" label="Part artisan"
+              value={modele.part_artisan}
+              onChange={(v) => setModele({ ...modele, part_artisan: v })}
+            />
             <RowCalc num="3" label="Revenus bruts plateforme (1 − 2)" value={revenusPlateformeBruts} highlight />
             <RowCalc num="4" label="Reversements réseau (depuis onglet Taux MLM)" value={totalMlm} />
             <RowCalc num="5" label="Revenus nets (3 − 4)" value={revenusNets} highlight />
@@ -455,7 +459,7 @@ export function ParametresClient({ initialMlmRates, initialModele, initialPartag
   const [isPending, startTransition] = useTransition()
 
   const totalMlm = mlmRates.reduce((s, r) => s + Number(r.taux), 0)
-  const partArtisan = 100 - totalMlm
+  const partArtisan = modele.part_artisan
 
   function save(key: string, value: unknown, tabKey: TabKey) {
     startTransition(async () => {
