@@ -1,15 +1,65 @@
 import Link from 'next/link'
 import { UserPlus, ExternalLink, CheckCircle2, Clock, AlertCircle, Banknote, HardHat, LogIn } from 'lucide-react'
+import { ActiviteList } from '@/components/ActiviteBadge'
+import type { ActiviteSlug } from '@/lib/activites'
 
 const CLIENTS = [
-  { id: 'c1', prenom: 'Marie',    nom: 'Lefebvre',  email: 'marie.lefebvre@email.fr',  adresse: '8 allée des Roses, 75016 Paris',          chantier: true,  facturation: 'a_facturer' },
-  { id: 'c2', prenom: 'Pierre',   nom: 'Rousseau',  email: 'pierre.rousseau@email.fr', adresse: '3 rue Victor Hugo, 69001 Lyon',            chantier: false, facturation: 'facture'    },
-  { id: 'c3', prenom: 'Isabelle', nom: 'Moreau',    email: 'isabelle.moreau@email.fr', adresse: '15 avenue Foch, 31000 Toulouse',           chantier: true,  facturation: 'a_venir'    },
-  { id: 'c4', prenom: 'François', nom: 'Blanc',     email: 'francois.blanc@email.fr',  adresse: '22 rue de la Paix, 33000 Bordeaux',        chantier: false, facturation: 'paye'       },
-  { id: 'c5', prenom: 'Claire',   nom: 'Dupuis',    email: 'claire.dupuis@email.fr',   adresse: '7 place Bellecour, 69002 Lyon',            chantier: false, facturation: 'paye'       },
-  { id: 'c6', prenom: 'Antoine',  nom: 'Girard',    email: 'antoine.girard@email.fr',  adresse: '14 rue des Acacias, 59000 Lille',          chantier: true,  facturation: 'a_facturer' },
-  { id: 'c7', prenom: 'Lucie',    nom: 'Perrin',    email: 'lucie.perrin@email.fr',    adresse: '2 impasse du Moulin, 67000 Strasbourg',    chantier: false, facturation: 'facture'    },
-  { id: 'c8', prenom: 'Nicolas',  nom: 'Fontaine',  email: 'nicolas.fontaine@email.fr',adresse: '19 rue du Commerce, 44000 Nantes',         chantier: true,  facturation: 'a_venir'    },
+  {
+    id: 'c1', prenom: 'Marie',    nom: 'Lefebvre',
+    email: 'marie.lefebvre@email.fr',
+    adresse: '8 allée des Roses, 75016 Paris',
+    chantier: true,  facturation: 'a_facturer',
+    activites: ['plomberie', 'electricite'] as ActiviteSlug[],
+  },
+  {
+    id: 'c2', prenom: 'Pierre',   nom: 'Rousseau',
+    email: 'pierre.rousseau@email.fr',
+    adresse: '3 rue Victor Hugo, 69001 Lyon',
+    chantier: false, facturation: 'facture',
+    activites: [] as ActiviteSlug[],
+  },
+  {
+    id: 'c3', prenom: 'Isabelle', nom: 'Moreau',
+    email: 'isabelle.moreau@email.fr',
+    adresse: '15 avenue Foch, 31000 Toulouse',
+    chantier: true,  facturation: 'a_venir',
+    activites: ['maconnerie'] as ActiviteSlug[],
+  },
+  {
+    id: 'c4', prenom: 'François', nom: 'Blanc',
+    email: 'francois.blanc@email.fr',
+    adresse: '22 rue de la Paix, 33000 Bordeaux',
+    chantier: false, facturation: 'paye',
+    activites: [] as ActiviteSlug[],
+  },
+  {
+    id: 'c5', prenom: 'Claire',   nom: 'Dupuis',
+    email: 'claire.dupuis@email.fr',
+    adresse: '7 place Bellecour, 69002 Lyon',
+    chantier: false, facturation: 'paye',
+    activites: [] as ActiviteSlug[],
+  },
+  {
+    id: 'c6', prenom: 'Antoine',  nom: 'Girard',
+    email: 'antoine.girard@email.fr',
+    adresse: '14 rue des Acacias, 59000 Lille',
+    chantier: true,  facturation: 'a_facturer',
+    activites: ['electricite', 'chauffage'] as ActiviteSlug[],
+  },
+  {
+    id: 'c7', prenom: 'Lucie',    nom: 'Perrin',
+    email: 'lucie.perrin@email.fr',
+    adresse: '2 impasse du Moulin, 67000 Strasbourg',
+    chantier: false, facturation: 'facture',
+    activites: [] as ActiviteSlug[],
+  },
+  {
+    id: 'c8', prenom: 'Nicolas',  nom: 'Fontaine',
+    email: 'nicolas.fontaine@email.fr',
+    adresse: '19 rue du Commerce, 44000 Nantes',
+    chantier: true,  facturation: 'a_venir',
+    activites: ['peinture', 'menuiserie'] as ActiviteSlug[],
+  },
 ]
 
 const FACTURATION_CONFIG = {
@@ -54,7 +104,7 @@ export default function ClientsPage() {
             <tr className="bg-[#F9F9FB] border-b border-[#E5E5EA]">
               <th className="px-5 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Client</th>
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Adresse</th>
-              <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Email</th>
+              <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Activité(s) chantier</th>
               <th className="px-4 py-3.5 text-center text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Chantier</th>
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Facturation</th>
               <th className="w-16 px-4 py-3.5" />
@@ -70,14 +120,21 @@ export default function ClientsPage() {
                       <div className="w-9 h-9 rounded-full bg-[#34C759]/10 flex items-center justify-center shrink-0">
                         <span className="text-[13px] font-bold text-[#34C759]">{c.prenom[0]}{c.nom[0]}</span>
                       </div>
-                      <span className="font-semibold text-[14px] text-[#1D1D1F]">{c.prenom} {c.nom}</span>
+                      <div>
+                        <div className="font-semibold text-[14px] text-[#1D1D1F]">{c.prenom} {c.nom}</div>
+                        <div className="text-[12px] text-[#6E6E73] truncate max-w-[180px]">{c.adresse}</div>
+                      </div>
                     </div>
                   </td>
                   <td className="px-4 py-4">
-                    <div className="text-[13px] text-[#6E6E73] max-w-[220px] truncate">{c.adresse}</div>
+                    <div className="text-[13px] text-[#6E6E73] max-w-[200px] truncate">{c.adresse}</div>
                   </td>
                   <td className="px-4 py-4">
-                    <div className="text-[13px] text-[#1D1D1F]">{c.email}</div>
+                    {c.activites.length > 0 ? (
+                      <ActiviteList slugs={c.activites} />
+                    ) : (
+                      <span className="text-[12px] text-[#C7C7CC]">—</span>
+                    )}
                   </td>
                   <td className="px-4 py-4 text-center">
                     {c.chantier ? (
