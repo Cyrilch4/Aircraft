@@ -2,7 +2,7 @@ import { ExternalLink, Plus, MapPin } from 'lucide-react'
 
 const FOURNISSEURS = [
   {
-    id: 'f1',
+    id: 'f1', ref: 'FOU-20240201-0001',
     enseigne: 'Point P',
     categorie: 'Matériaux gros œuvre',
     adresse: '45 route Industrielle, 93200 Saint-Denis',
@@ -11,7 +11,7 @@ const FOURNISSEURS = [
     couleur: '#E63946',
   },
   {
-    id: 'f2',
+    id: 'f2', ref: 'FOU-20240201-0002',
     enseigne: 'Leroy Merlin Pro',
     categorie: 'Bricolage & second œuvre',
     adresse: "2 avenue de l'Europe, 92000 Nanterre",
@@ -20,7 +20,7 @@ const FOURNISSEURS = [
     couleur: '#2DC653',
   },
   {
-    id: 'f3',
+    id: 'f3', ref: 'FOU-20240201-0003',
     enseigne: 'CEDEO',
     categorie: 'Sanitaire & plomberie',
     adresse: '12 rue de la Bonne Graine, 45000 Orléans',
@@ -29,7 +29,7 @@ const FOURNISSEURS = [
     couleur: '#0071E3',
   },
   {
-    id: 'f4',
+    id: 'f4', ref: 'FOU-20240201-0004',
     enseigne: 'Würth France',
     categorie: 'Fixation & outillage pro',
     adresse: 'Zone Industrielle Nord, 67025 Strasbourg',
@@ -38,7 +38,7 @@ const FOURNISSEURS = [
     couleur: '#FF3B30',
   },
   {
-    id: 'f5',
+    id: 'f5', ref: 'FOU-20240201-0005',
     enseigne: 'Rexel',
     categorie: 'Électricité & éclairage',
     adresse: '13 bd du Fort de Vaux, 75017 Paris',
@@ -47,7 +47,7 @@ const FOURNISSEURS = [
     couleur: '#FF9500',
   },
   {
-    id: 'f6',
+    id: 'f6', ref: 'FOU-20240201-0006',
     enseigne: 'Loxam',
     categorie: 'Location de matériel',
     adresse: '5 avenue Newton, 92000 Nanterre',
@@ -56,7 +56,7 @@ const FOURNISSEURS = [
     couleur: '#AF52DE',
   },
   {
-    id: 'f7',
+    id: 'f7', ref: 'FOU-20240201-0007',
     enseigne: 'Brico Dépôt Pro',
     categorie: 'Matériaux & équipements',
     adresse: '8 rue de la Fontaine, 44300 Nantes',
@@ -65,7 +65,7 @@ const FOURNISSEURS = [
     couleur: '#FF6B00',
   },
   {
-    id: 'f8',
+    id: 'f8', ref: 'FOU-20240201-0008',
     enseigne: 'Manutan',
     categorie: 'Équipement atelier & EPI',
     adresse: '100 avenue du Général de Gaulle, 95013 Cergy',
@@ -95,6 +95,7 @@ export default function FournisseursPage() {
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr className="bg-[#F9F9FB] border-b border-[#E5E5EA]">
+              <th className="px-5 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Réf.</th>
               <th className="px-5 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Enseigne</th>
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Adresse</th>
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Téléphone</th>
@@ -105,6 +106,9 @@ export default function FournisseursPage() {
           <tbody className="divide-y divide-[#F5F5F7]">
             {FOURNISSEURS.map((f) => (
               <tr key={f.id} className="hover:bg-[#F5F5F7] transition-colors group">
+                <td className="px-5 py-4">
+                  <span className="font-mono text-[11px] text-[#6E6E73] bg-[#F5F5F7] px-2 py-1 rounded-lg whitespace-nowrap">{f.ref}</span>
+                </td>
                 <td className="px-5 py-4">
                   <div className="flex items-center gap-3">
                     <div

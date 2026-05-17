@@ -14,6 +14,7 @@ import type { ActiviteSlug } from '@/lib/activites'
 
 const DEMO = {
   id: '11111111-1111-1111-1111-111111111111',
+  ref: 'PRO-20240115-0001',
   prenom: 'Sophie', nom: 'Martin',
   type: 'independant' as const,
   raisonSociale: 'Sophie Martin EI',
@@ -534,7 +535,10 @@ export function ArtisanDetailClient({ id }: { id: string }) {
                   Indépendant
                 </span>
               </div>
-              <div className="text-[13px] text-[#6E6E73] mt-0.5">{DEMO.raisonSociale} · SIREN {DEMO.siren}</div>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="font-mono text-[11px] text-[#6E6E73] bg-[#F5F5F7] px-2 py-0.5 rounded-md">{DEMO.ref}</span>
+                <span className="text-[13px] text-[#6E6E73]">{DEMO.raisonSociale} · SIREN {DEMO.siren}</span>
+              </div>
               <div className="mt-2">
                 <ActiviteList slugs={DEMO.activites} />
               </div>

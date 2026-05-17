@@ -4,6 +4,7 @@ import {
   Users,
   UserCheck,
   HardHat,
+  Building2,
   Package,
   Receipt,
   FileText,
@@ -11,14 +12,15 @@ import {
 } from 'lucide-react'
 
 const NAV = [
-  { href: '/admin',            label: 'Tableau de bord', icon: LayoutDashboard },
-  { href: '/admin/artisans',   label: 'Artisans',        icon: Users           },
-  { href: '/admin/clients',    label: 'Clients finaux',  icon: UserCheck       },
-  { href: '/admin/chantiers',  label: 'Chantiers',       icon: HardHat         },
-  { href: '/admin/fournisseurs',label: 'Fournisseurs',   icon: Package         },
-  { href: '/admin/facturation', label: 'Facturation',    icon: Receipt         },
-  { href: '/admin/contenus',   label: 'Contenus',        icon: FileText        },
-  { href: '/admin/parametres', label: 'Paramètres MLM',  icon: Settings2       },
+  { href: '/admin',             label: 'Tableau de bord', icon: LayoutDashboard },
+  { href: '/admin/artisans',    label: 'Artisans',        icon: Users           },
+  { href: '/admin/clients',     label: 'Clients finaux',  icon: UserCheck       },
+  { href: '/admin/chantiers',   label: 'Chantiers',       icon: HardHat         },
+  { href: '/admin/biens',       label: 'Biens',           icon: Building2       },
+  { href: '/admin/fournisseurs', label: 'Fournisseurs',   icon: Package         },
+  { href: '/admin/facturation',  label: 'Facturation',    icon: Receipt         },
+  { href: '/admin/contenus',    label: 'Contenus',        icon: FileText        },
+  { href: '/admin/parametres',  label: 'Paramètres MLM',  icon: Settings2       },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

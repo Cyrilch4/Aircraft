@@ -28,7 +28,7 @@ const DPE_DESC: Record<string, string> = {
 }
 
 const BIENS: Record<string, {
-  id: string; type: BienType; adresse: string; codePostal: string; ville: string;
+  id: string; ref: string; type: BienType; adresse: string; codePostal: string; ville: string;
   surface: number; pieces: number; etage: number; annee: number; dpe: string;
   description?: string; syndic?: string; notesInterne?: string;
   proprietaire: { id: string; nom: string; telephone: string; email: string };
@@ -40,7 +40,7 @@ const BIENS: Record<string, {
   }[];
 }> = {
   b1: {
-    id: 'b1', type: 'appartement',
+    id: 'b1', ref: 'BIE-20190315-0001', type: 'appartement',
     adresse: '8 allée des Roses', codePostal: '75016', ville: 'Paris',
     surface: 65, pieces: 3, etage: 4, annee: 1978, dpe: 'D',
     description: 'Appartement en étage élevé avec vue dégagée. Double exposition. Cuisine séparée, séjour lumineux, deux chambres.',
@@ -67,7 +67,7 @@ const BIENS: Record<string, {
     ],
   },
   b2: {
-    id: 'b2', type: 'maison',
+    id: 'b2', ref: 'BIE-20120601-0002', type: 'maison',
     adresse: '3 rue Victor Hugo', codePostal: '69001', ville: 'Lyon',
     surface: 120, pieces: 5, etage: 0, annee: 1965, dpe: 'E',
     description: 'Maison de ville avec jardin de 80 m². Plain-pied avec sous-sol aménagé. Garage double.',
@@ -79,7 +79,7 @@ const BIENS: Record<string, {
     chantiers: [],
   },
   b3: {
-    id: 'b3', type: 'appartement',
+    id: 'b3', ref: 'BIE-20170901-0003', type: 'appartement',
     adresse: '15 avenue Foch', codePostal: '31000', ville: 'Toulouse',
     surface: 85, pieces: 4, etage: 2, annee: 1990, dpe: 'C',
     proprietaire: { id: 'c3', nom: 'Isabelle Moreau', telephone: '06 11 22 33 44', email: 'i.moreau@email.fr' },
@@ -94,7 +94,7 @@ const BIENS: Record<string, {
     ],
   },
   b4: {
-    id: 'b4', type: 'appartement',
+    id: 'b4', ref: 'BIE-20150410-0004', type: 'appartement',
     adresse: '22 rue de la Paix', codePostal: '33000', ville: 'Bordeaux',
     surface: 110, pieces: 5, etage: 3, annee: 1905, dpe: 'F',
     description: 'Appartement haussmannien avec moulures et parquet d\'origine. Hauts plafonds 3,20 m. Vue sur cour intérieure calme.',
@@ -114,7 +114,7 @@ const BIENS: Record<string, {
     ],
   },
   b5: {
-    id: 'b5', type: 'bureau',
+    id: 'b5', ref: 'BIE-20220115-0005', type: 'bureau',
     adresse: '14 rue des Acacias', codePostal: '59000', ville: 'Lille',
     surface: 95, pieces: 0, etage: 1, annee: 2005, dpe: 'B',
     description: 'Plateau de bureaux modulable. Open-space central + 3 salles de réunion. Accès PMR. Parking en sous-sol.',
@@ -130,7 +130,7 @@ const BIENS: Record<string, {
     ],
   },
   b6: {
-    id: 'b6', type: 'appartement',
+    id: 'b6', ref: 'BIE-20201101-0006', type: 'appartement',
     adresse: '19 rue du Commerce', codePostal: '44000', ville: 'Nantes',
     surface: 55, pieces: 2, etage: 5, annee: 2001, dpe: 'C',
     proprietaire: { id: 'c8', nom: 'Nicolas Fontaine', telephone: '06 33 44 55 66', email: 'n.fontaine@email.fr' },
@@ -212,9 +212,12 @@ export function BienDetailClient({ id }: { id: string }) {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h1 className="text-[24px] font-bold text-[#1D1D1F] tracking-tight leading-tight">{bien.adresse}</h1>
-                <div className="flex items-center gap-1.5 mt-1 text-[14px] text-[#6E6E73]">
-                  <MapPin className="w-3.5 h-3.5" />
-                  {bien.codePostal} {bien.ville}
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="font-mono text-[11px] text-[#6E6E73] bg-[#F5F5F7] px-2 py-0.5 rounded-md">{bien.ref}</span>
+                  <span className="flex items-center gap-1 text-[14px] text-[#6E6E73]">
+                    <MapPin className="w-3.5 h-3.5" />
+                    {bien.codePostal} {bien.ville}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 mt-2.5">
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-semibold text-white" style={{ backgroundColor: cfg.color }}>

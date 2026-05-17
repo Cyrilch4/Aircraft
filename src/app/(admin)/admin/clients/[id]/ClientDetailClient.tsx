@@ -15,6 +15,7 @@ import type { ActiviteSlug } from '@/lib/activites'
 
 const DEMO = {
   id: 'c1',
+  ref: 'CLT-20240120-0001',
   prenom: 'Marie', nom: 'Lefebvre',
   type: 'particulier' as 'particulier' | 'professionnel',
   email: 'marie.lefebvre@email.fr',
@@ -640,7 +641,10 @@ export function ClientDetailClient({ id }: { id: string }) {
                   <HardHat className="w-3 h-3" /> Chantier en cours
                 </span>
               </div>
-              <div className="text-[13px] text-[#6E6E73] mt-0.5">{DEMO.bien.type.charAt(0).toUpperCase() + DEMO.bien.type.slice(1)} · {DEMO.bien.surface} m² · {DEMO.adresse}</div>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="font-mono text-[11px] text-[#6E6E73] bg-[#F5F5F7] px-2 py-0.5 rounded-md">{DEMO.ref}</span>
+                <span className="text-[13px] text-[#6E6E73]">{DEMO.bien.type.charAt(0).toUpperCase() + DEMO.bien.type.slice(1)} · {DEMO.bien.surface} m² · {DEMO.adresse}</span>
+              </div>
               <div className="text-[13px] text-[#6E6E73] mt-0.5">{DEMO.email} · {DEMO.tel}</div>
             </div>
           </div>

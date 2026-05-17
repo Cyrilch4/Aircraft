@@ -26,7 +26,7 @@ const STATUT_CONFIG: Record<Statut, { label: string; icon: React.ElementType; co
 }
 
 interface Chantier {
-  id: string; titre: string;
+  id: string; ref: string; titre: string;
   client: { id: string; nom: string; telephone: string; email: string };
   bien: { id: string; adresse: string; codePostal: string; ville: string; type: BienType };
   activites: ActiviteSlug[];
@@ -42,7 +42,7 @@ interface Chantier {
 
 const CHANTIERS: Record<string, Chantier> = {
   ch1: {
-    id: 'ch1',
+    id: 'ch1', ref: 'CHA-20260415-0003',
     titre: 'Rénovation salle de bain + mise aux normes électriques',
     client: { id: 'c1', nom: 'Marie Lefebvre', telephone: '06 12 34 56 78', email: 'marie.lefebvre@email.fr' },
     bien: { id: 'b1', adresse: '8 allée des Roses', codePostal: '75016', ville: 'Paris', type: 'appartement' },
@@ -78,7 +78,7 @@ const CHANTIERS: Record<string, Chantier> = {
     ],
   },
   ch2: {
-    id: 'ch2',
+    id: 'ch2', ref: 'CHA-20260502-0004',
     titre: 'Extension maison — fondations et gros œuvre',
     client: { id: 'c3', nom: 'Isabelle Moreau', telephone: '06 11 22 33 44', email: 'i.moreau@email.fr' },
     bien: { id: 'b3', adresse: '15 avenue Foch', codePostal: '31000', ville: 'Toulouse', type: 'appartement' },
@@ -103,7 +103,7 @@ const CHANTIERS: Record<string, Chantier> = {
     ],
   },
   ch3: {
-    id: 'ch3',
+    id: 'ch3', ref: 'CHA-20260510-0005',
     titre: 'Installation pompe à chaleur + tableau électrique',
     client: { id: 'c6', nom: 'Antoine Girard', telephone: '06 77 88 99 00', email: 'a.girard@email.fr' },
     bien: { id: 'b5', adresse: '14 rue des Acacias', codePostal: '59000', ville: 'Lille', type: 'bureau' },
@@ -130,7 +130,7 @@ const CHANTIERS: Record<string, Chantier> = {
     ],
   },
   ch4: {
-    id: 'ch4',
+    id: 'ch4', ref: 'CHA-20260701-0006',
     titre: 'Ravalement façade + peinture intérieure',
     client: { id: 'c8', nom: 'Nicolas Fontaine', telephone: '06 33 44 55 66', email: 'n.fontaine@email.fr' },
     bien: { id: 'b6', adresse: '19 rue du Commerce', codePostal: '44000', ville: 'Nantes', type: 'appartement' },
@@ -153,7 +153,7 @@ const CHANTIERS: Record<string, Chantier> = {
     ],
   },
   ch5: {
-    id: 'ch5',
+    id: 'ch5', ref: 'CHA-20251001-0001',
     titre: 'Rénovation complète appartement haussmannien',
     client: { id: 'c4', nom: 'François Blanc', telephone: '06 55 44 33 22', email: 'f.blanc@email.fr' },
     bien: { id: 'b4', adresse: '22 rue de la Paix', codePostal: '33000', ville: 'Bordeaux', type: 'appartement' },
@@ -283,9 +283,12 @@ export function ChantierDetailClient({ id }: { id: string }) {
                   <ActiviteList slugs={ch.activites} />
                 </div>
                 <h1 className="text-[22px] font-bold text-[#1D1D1F] tracking-tight leading-snug">{ch.titre}</h1>
-                <div className="flex items-center gap-1.5 mt-1.5 text-[13px] text-[#6E6E73]">
-                  <MapPin className="w-3.5 h-3.5" />
-                  {ch.bien.adresse}, {ch.bien.codePostal} {ch.bien.ville}
+                <div className="flex items-center gap-2 mt-1.5">
+                  <span className="font-mono text-[11px] text-[#6E6E73] bg-[#F5F5F7] px-2 py-0.5 rounded-md">{ch.ref}</span>
+                  <span className="flex items-center gap-1 text-[13px] text-[#6E6E73]">
+                    <MapPin className="w-3.5 h-3.5" />
+                    {ch.bien.adresse}, {ch.bien.codePostal} {ch.bien.ville}
+                  </span>
                 </div>
               </div>
             </div>

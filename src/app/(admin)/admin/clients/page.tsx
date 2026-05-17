@@ -5,56 +5,56 @@ import type { ActiviteSlug } from '@/lib/activites'
 
 const CLIENTS = [
   {
-    id: 'c1', prenom: 'Marie',    nom: 'Lefebvre',
+    id: 'c1', ref: 'CLT-20240120-0001', prenom: 'Marie',    nom: 'Lefebvre',
     email: 'marie.lefebvre@email.fr',
     adresse: '8 allée des Roses, 75016 Paris',
     chantier: true,  facturation: 'a_facturer',
     activites: ['plomberie', 'electricite'] as ActiviteSlug[],
   },
   {
-    id: 'c2', prenom: 'Pierre',   nom: 'Rousseau',
+    id: 'c2', ref: 'CLT-20240125-0002', prenom: 'Pierre',   nom: 'Rousseau',
     email: 'pierre.rousseau@email.fr',
     adresse: '3 rue Victor Hugo, 69001 Lyon',
     chantier: false, facturation: 'facture',
     activites: [] as ActiviteSlug[],
   },
   {
-    id: 'c3', prenom: 'Isabelle', nom: 'Moreau',
+    id: 'c3', ref: 'CLT-20240205-0003', prenom: 'Isabelle', nom: 'Moreau',
     email: 'isabelle.moreau@email.fr',
     adresse: '15 avenue Foch, 31000 Toulouse',
     chantier: true,  facturation: 'a_venir',
     activites: ['maconnerie'] as ActiviteSlug[],
   },
   {
-    id: 'c4', prenom: 'François', nom: 'Blanc',
+    id: 'c4', ref: 'CLT-20240215-0004', prenom: 'François', nom: 'Blanc',
     email: 'francois.blanc@email.fr',
     adresse: '22 rue de la Paix, 33000 Bordeaux',
     chantier: false, facturation: 'paye',
     activites: [] as ActiviteSlug[],
   },
   {
-    id: 'c5', prenom: 'Claire',   nom: 'Dupuis',
+    id: 'c5', ref: 'CLT-20240301-0005', prenom: 'Claire',   nom: 'Dupuis',
     email: 'claire.dupuis@email.fr',
     adresse: '7 place Bellecour, 69002 Lyon',
     chantier: false, facturation: 'paye',
     activites: [] as ActiviteSlug[],
   },
   {
-    id: 'c6', prenom: 'Antoine',  nom: 'Girard',
+    id: 'c6', ref: 'CLT-20240322-0006', prenom: 'Antoine',  nom: 'Girard',
     email: 'antoine.girard@email.fr',
     adresse: '14 rue des Acacias, 59000 Lille',
     chantier: true,  facturation: 'a_facturer',
     activites: ['electricite', 'chauffage'] as ActiviteSlug[],
   },
   {
-    id: 'c7', prenom: 'Lucie',    nom: 'Perrin',
+    id: 'c7', ref: 'CLT-20240410-0007', prenom: 'Lucie',    nom: 'Perrin',
     email: 'lucie.perrin@email.fr',
     adresse: '2 impasse du Moulin, 67000 Strasbourg',
     chantier: false, facturation: 'facture',
     activites: [] as ActiviteSlug[],
   },
   {
-    id: 'c8', prenom: 'Nicolas',  nom: 'Fontaine',
+    id: 'c8', ref: 'CLT-20241101-0008', prenom: 'Nicolas',  nom: 'Fontaine',
     email: 'nicolas.fontaine@email.fr',
     adresse: '19 rue du Commerce, 44000 Nantes',
     chantier: true,  facturation: 'a_venir',
@@ -102,6 +102,7 @@ export default function ClientsPage() {
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr className="bg-[#F9F9FB] border-b border-[#E5E5EA]">
+              <th className="px-5 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Réf.</th>
               <th className="px-5 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Client</th>
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Adresse</th>
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Activité(s) chantier</th>
@@ -115,6 +116,9 @@ export default function ClientsPage() {
               const encodedName = encodeURIComponent(`${c.prenom} ${c.nom}`)
               return (
                 <tr key={c.id} className="hover:bg-[#F5F5F7] transition-colors group">
+                  <td className="px-5 py-4">
+                    <span className="font-mono text-[11px] text-[#6E6E73] bg-[#F5F5F7] px-2 py-1 rounded-lg whitespace-nowrap">{c.ref}</span>
+                  </td>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full bg-[#34C759]/10 flex items-center justify-center shrink-0">

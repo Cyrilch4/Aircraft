@@ -9,6 +9,7 @@ type ArtisanType = 'independant' | 'entreprise'
 const ARTISANS = [
   {
     id: '11111111-1111-1111-1111-111111111111',
+    ref: 'PRO-20240115-0001',
     prenom: 'Sophie',  nom: 'Martin',
     type: 'independant' as ArtisanType,
     activites: ['plomberie', 'chauffage'] as ActiviteSlug[],
@@ -18,6 +19,7 @@ const ARTISANS = [
   },
   {
     id: '22222222-2222-2222-2222-222222222222',
+    ref: 'PRO-20240203-0002',
     prenom: 'Thomas',  nom: 'Dupont',
     type: 'entreprise' as ArtisanType,
     nom_entreprise: 'Dupont Elec SARL',
@@ -29,6 +31,7 @@ const ARTISANS = [
   },
   {
     id: '33333333-3333-3333-3333-333333333333',
+    ref: 'PRO-20240320-0003',
     prenom: 'Julie',   nom: 'Bernard',
     type: 'independant' as ArtisanType,
     activites: ['maconnerie'] as ActiviteSlug[],
@@ -38,6 +41,7 @@ const ARTISANS = [
   },
   {
     id: '44444444-4444-4444-4444-444444444444',
+    ref: 'PRO-20240501-0004',
     prenom: 'Marc',    nom: 'Leroy',
     type: 'entreprise' as ArtisanType,
     nom_entreprise: 'Leroy Bâtiment',
@@ -49,6 +53,7 @@ const ARTISANS = [
   },
   {
     id: '55555555-5555-5555-5555-555555555555',
+    ref: 'PRO-20241012-0005',
     prenom: 'Emma',    nom: 'Moreau',
     type: 'independant' as ArtisanType,
     activites: ['architecture', 'menuiserie'] as ActiviteSlug[],
@@ -105,6 +110,7 @@ export default async function ArtisansPage() {
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr className="bg-[#F9F9FB] border-b border-[#E5E5EA]">
+              <th className="px-5 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Réf.</th>
               <th className="px-5 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Professionnel</th>
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Activité(s)</th>
               <th className="px-4 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wide text-[#6E6E73]">Contact</th>
@@ -119,6 +125,9 @@ export default async function ArtisansPage() {
               const encodedName = encodeURIComponent(`${a.prenom} ${a.nom}`)
               return (
                 <tr key={a.id} className="hover:bg-[#F5F5F7] transition-colors group">
+                  <td className="px-5 py-4">
+                    <span className="font-mono text-[11px] text-[#6E6E73] bg-[#F5F5F7] px-2 py-1 rounded-lg whitespace-nowrap">{a.ref}</span>
+                  </td>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full bg-[#0071E3]/10 flex items-center justify-center shrink-0">
